@@ -28,7 +28,7 @@ open class StickyViewController: UIViewController, UIScrollViewDelegate {
         super.init(coder: coder)
     }
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         setupScrollView()
         setupStickyContainer()
