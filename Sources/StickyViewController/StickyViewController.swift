@@ -13,18 +13,26 @@ open class StickyViewController: UIViewController, UIScrollViewDelegate {
 
     /// The main scroll view to contain all content views.
     public let scrollView = UIScrollView()
-    
+
     /// A list of sticky items, each consisting of a contentView, a stickyView, and a fixed height.
     private var stickyItems: [(contentView: UIView, stickyView: UIView, height: CGFloat)] = []
 
     /// A container view that holds all sticky views, stacked vertically.
     private let stickyContainerView = UIView()
 
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupScrollView()
         setupStickyContainer()
-        setupStickyContent() // Subclasses should override this to call configureStickyViews(...)
+        setupStickyContent()
     }
 
     /// Configures and adds the main scrollView to the view hierarchy.
@@ -57,7 +65,7 @@ open class StickyViewController: UIViewController, UIScrollViewDelegate {
 
     /// Override this method in subclasses to call `configureStickyViews(...)`
     /// and provide the list of sticky pairs.
-    func setupStickyContent() {
+    open func setupStickyContent() {
         // To be overridden by subclass
     }
 
@@ -100,11 +108,10 @@ open class StickyViewController: UIViewController, UIScrollViewDelegate {
     }
 
     /// UIScrollViewDelegate: Detects scrolling and shows/hides sticky views accordingly.
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var accumulatedHeight: CGFloat = 0
 
         for item in stickyItems {
-            // Convert contentView's frame to the root view coordinate space
             let minY = item.contentView.convert(item.contentView.bounds, to: view).minY
             let shouldShow = minY <= accumulatedHeight + 1
 
