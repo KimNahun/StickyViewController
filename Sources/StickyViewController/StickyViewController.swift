@@ -9,7 +9,7 @@ import UIKit
 
 /// A base view controller that supports up to 3 sticky views.
 /// Sticky views appear at the top when their corresponding content views scroll off screen.
-public class StickyViewController: UIViewController, UIScrollViewDelegate {
+open class StickyViewController: UIViewController, UIScrollViewDelegate {
 
     /// The main scroll view to contain all content views.
     public let scrollView = UIScrollView()
